@@ -1,0 +1,12 @@
+
+
+1) Install TeensyduinoInstaller.exe into Arduino IDE files.(from https://www.pjrc.com/teensy/td_download.html)
+
+2) Open Arduino IDE
+
+3) Change board type to Teensduino 3.2/3.1
+
+4) Change the USB Type to Keyboard
+
+
+

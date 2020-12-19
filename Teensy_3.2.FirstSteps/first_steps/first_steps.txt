@@ -1,12 +1,13 @@
 
 
+
+How to upload an HEX to Teensyduino
+
 1) Install TeensyduinoInstaller.exe into Arduino IDE files.(from https://www.pjrc.com/teensy/td_download.html)
-
 2) Open Arduino IDE
-
 3) Change board type to Teensduino 3.2/3.1
-
 4) Change the USB Type to Keyboard
-
-
-
+5) Connect the cable!
+6) Run Teensyduino.exe (and change it for auto mode)
+7) Press button in board
+8) Compile source code in Arduino IDE and upload it to the board.

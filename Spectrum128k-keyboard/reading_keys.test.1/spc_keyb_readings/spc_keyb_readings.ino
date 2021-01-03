@@ -38,6 +38,7 @@ void setup() {
 }
 
 
+
 // Compare two bytes arrays (in this program, 2 keys)
 bool are_equals_arrays(byte a[],byte b[],int len)
 {
@@ -70,8 +71,8 @@ bool read_key()
       
       pinMode(column_pins[c],INPUT_PULLUP);   // Mode read PULLUP
       
-      if(digitalRead(column_pins[c])==LOW)    // Because keyboard mount was pulled to GND, get the results this way (D5..D12
-        acc = acc + pow(2,c);                 // Bitwising a byte
+      if(digitalRead(column_pins[c])==HIGH)    // Because keyboard mount was pulled to GND, get the results this way (D5..D12
+        acc = acc + pow(2,c);                  // Bitwising a byte
     }
 
     digitalWrite(row_pins[r],LOW);          // flooded line is now off
@@ -80,7 +81,14 @@ bool read_key()
   }
 
   if(!are_equals_arrays(one_read,last_read,NUM_ROWS))   // If this is a different key
-   key_pressed = true;
+   {
+    key_pressed = true;
+    last_read[0]=one_read[0];
+    last_read[1]=one_read[1];
+    last_read[2]=one_read[2];
+    last_read[3]=one_read[3];
+    last_read[4]=one_read[4];
+   }
 
  return key_pressed;    // will be true if something happened
 }
@@ -93,7 +101,7 @@ void loop() {
   {
     for(int ptr=0;ptr<5;ptr++)  // if a new key was pressed show all the 5 values
     {
-     Keyboard.print(one_read[ptr]);
+     Keyboard.print(one_read[ptr],BIN);
      Keyboard.print(" ");
     }
     Keyboard.println(" ");

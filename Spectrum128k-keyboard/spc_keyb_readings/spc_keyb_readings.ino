@@ -1,11 +1,14 @@
 #include <Keyboard.h>
-
-// (c) Antonio Costa (AMC0sta) - 2021/01/03
-// Program to read keyboard signais from Spectrum 128k+2 Keyboard Matrix
-// This the first program around it. The ideia is to MAP keys using these read signals
-// 128k Spectrum keyboard is a matrix of 5x8. This program flood all the rows, and get respective signals in rows (Next step is: check if there are a unique 5 bytes combinatios per key)
-// PS: Digital Inputs are pulled GND.
-
+/*
+ (c) Antonio Costa (AMC0sta) - 2021/01/03
+ 
+ Program to read keyboard signals from Spectrum 128k+2 Keyboard Matrix
+ 
+ This is the first program around it. The ideia is to MAP keys using signals read by this.
+ 128k Spectrum keyboard is a matrix of 5x8. This program flood all the rows, and get respective signals in the columns (Next step is: check if there are a unique 5 bytes combinatios per each key)
+ 
+ PS: Digital Inputs are pulled to GND.
+*/
 
 #define NUM_ROWS 5
 #define NUM_COLUMNS 8
@@ -52,7 +55,7 @@ bool are_equals_arrays(byte a[],byte b[],int len)
   return result;
 }
 
-// Function that reads one key ... this key is the global var: one_read
+// Function that reads one key ... this key is in the global var: one_read
 bool read_key()
 { int acc = 0;                   // Bitwise mask
   bool key_pressed = false;      // value to signal out if a key is pressed
@@ -67,11 +70,11 @@ bool read_key()
       
       pinMode(column_pins[c],INPUT_PULLUP);   // Mode read PULLUP
       
-      if(digitalRead(column_pins[c])==LOW)    // Because keyboard mount was pulled to GND, get the results this way
+      if(digitalRead(column_pins[c])==LOW)    // Because keyboard mount was pulled to GND, get the results this way (D5..D12
         acc = acc + pow(2,c);                 // Bitwising a byte
     }
 
-    digitalWrite(row_pins[r],LOW);          // flooed line is now dry
+    digitalWrite(row_pins[r],LOW);          // flooded line is now off
     one_read[r] = acc;                      // Save partial state
     acc = 0;
   }
@@ -94,7 +97,7 @@ void loop() {
      Keyboard.print(" ");
     }
     Keyboard.println(" ");
-    digitalWrite(LED,HIGH);     // Also, blink on board LED for one second
+    digitalWrite(LED,HIGH);     // Also, blink the LED on board for one second
 
     delay(1000);
     digitalWrite(LED,LOW);
